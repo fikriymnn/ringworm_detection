@@ -1,15 +1,15 @@
-0 Penyakit_Lain
-1 Penyakit_Lain
-2 Penyakit_Lain
-3 Ringworm
-4 Ringworm
-5 Penyakit_Lain
-6 Penyakit_Lain
-7 Normal/Sehat
-8 Ringworm
-9 Ringworm
-10 Ringworm
-11 Penyakit_Lain
-12 Penyakit_Lain
-13 Penyakit_Lain
-14 Penyakit_Lain
+Penyakit_Lain
+Penyakit_Lain
+Penyakit_Lain
+Ringworm
+Ringworm
+Penyakit_Lain
+Penyakit_Lain
+Normal/Sehat
+Ringworm
+Ringworm
+Ringworm
+Penyakit_Lain
+Penyakit_Lain
+Penyakit_Lain
+Penyakit_Lain
