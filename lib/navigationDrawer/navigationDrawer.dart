@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../routes/pageRoute.dart';
@@ -35,7 +36,20 @@ class NavigatorDrawer extends StatelessWidget {
             text: 'About Me',
             onTap: () =>
                 Navigator.pushReplacementNamed(context, PageRoutes.aboutus),
-          )
+          ),
+          DrawerItem(
+              icon: Icons.logout,
+              text: 'logout',
+              onTap: () async {
+                try {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacementNamed(context, PageRoutes.login);
+                } catch (e) {
+                  AlertDialog(
+                    content: Text(e.toString()),
+                  );
+                }
+              })
         ],
       ),
     );

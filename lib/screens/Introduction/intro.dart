@@ -71,16 +71,16 @@ class Background extends StatelessWidget {
         color: Colors.white,
         child: Stack(
           children: <Widget>[
-            Positioned(
-              top: 0,
-              left: 0,
-              child: SvgPicture.asset("assets/images/Eclipse1.svg"),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: SvgPicture.asset("assets/images/Eclipse2.svg"),
-            ),
+            // Positioned(
+            //   top: 0,
+            //   left: 0,
+            //   child: SvgPicture.asset("assets/images/Eclipse1.svg"),
+            // ),
+            // Positioned(
+            //   top: 0,
+            //   right: 0,
+            //   child: SvgPicture.asset("assets/images/Eclipse2.svg"),
+            // ),
             child,
           ],
         ),

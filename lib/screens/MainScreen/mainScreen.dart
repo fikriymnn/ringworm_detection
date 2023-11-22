@@ -27,10 +27,10 @@ class _MainScreenState extends State<MainScreen> {
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 1,
             child: Column(children: [
-              SvgPicture.asset(
-                "assets/images/mask.svg",
-                height: MediaQuery.of(context).size.height * 0.31,
-              ),
+              // SvgPicture.asset(
+              //   "assets/images/mask.svg",
+              //   height: MediaQuery.of(context).size.height * 0.31,
+              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
@@ -47,10 +47,10 @@ class _MainScreenState extends State<MainScreen> {
                 col: Color(0xff14BE58),
                 option: "Gallery",
               ),
-              SvgPicture.asset(
-                "assets/images/sanitizer.svg",
-                height: MediaQuery.of(context).size.height * 0.29,
-              ),
+              // SvgPicture.asset(
+              //   "assets/images/sanitizer.svg",
+              //   height: MediaQuery.of(context).size.height * 0.29,
+              // ),
             ]),
           ),
         ),

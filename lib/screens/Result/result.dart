@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tflite/tflite.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
@@ -22,21 +22,21 @@ class _ResultState extends State<Result> {
   @override
   void initState() {
     super.initState();
-    loadModelData().then((output) {
-//after loading models, rebuild the UI.
-      setState(() {
-        result = null;
-      });
-    });
+//     loadModelData().then((output) {
+// //after loading models, rebuild the UI.
+//       setState(() {
+//         result = null;
+//       });
+//     });
   }
 
-  loadModelData() async {
-//tensorflow lite plugin loads models and labels.
-    await Tflite.loadModel(
-        model: 'assets/model_unquant.tflite', labels: 'assets/labels.txt');
+//   loadModelData() async {
+// //tensorflow lite plugin loads models and labels.
+//     await Tflite.loadModel(
+//         model: 'assets/model_unquant.tflite', labels: 'assets/labels.txt');
 
-    detectDisease();
-  }
+//     detectDisease();
+//   }
 
   _openGoogleMaps() async {
     String url =
@@ -49,20 +49,20 @@ class _ResultState extends State<Result> {
     }
   }
 
-  void detectDisease() async {
-    try {
-      result = await Tflite.runModelOnImage(
-        path: widget.imagefile.path,
-        numResults: 2,
-        threshold: 0.6,
-        imageMean: 127.5,
-        imageStd: 127.5,
-      );
-    } catch (e) {
-      // ignored, really.
-    }
-    setState(() {});
-  }
+  // void detectDisease() async {
+  //   try {
+  //     result = await Tflite.runModelOnImage(
+  //       path: widget.imagefile.path,
+  //       numResults: 2,
+  //       threshold: 0.6,
+  //       imageMean: 127.5,
+  //       imageStd: 127.5,
+  //     );
+  //   } catch (e) {
+  //     // ignored, really.
+  //   }
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {

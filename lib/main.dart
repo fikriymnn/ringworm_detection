@@ -1,12 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ringworm_detection/screens/login/login.dart';
+import 'package:ringworm_detection/screens/registrasi/registrasi.dart';
 import 'routes/pageRoute.dart';
 import 'screens/AboutDiseases/aboutdiseases.dart';
 import 'screens/Aboutus/aboutcreaters.dart';
 import 'screens/Introduction/intro.dart';
 import 'screens/DoandDont/Doees.dart';
 import 'screens/MainScreen/mainScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -21,13 +30,36 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.lightBlueAccent[400],
       ),
-      home: Intro(),
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              // Checking if the snapshot has any data or not
+              if (snapshot.hasData) {
+                // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
+                return const Intro();
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error}'),
+                );
+              }
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return const LoginScreens();
+          }),
       routes: {
         PageRoutes.home: (context) => const MainScreen(),
         PageRoutes.dodont: (context) => const Dos(),
         PageRoutes.intro: (context) => const Intro(),
         PageRoutes.aboutdis: (context) => const AboutDisease(),
         PageRoutes.aboutus: (context) => const AboutUs(),
+        PageRoutes.login: (context) => const LoginScreens(),
+        PageRoutes.registrasi: (context) => const RegistrasiScreens(),
       },
     );
   }
