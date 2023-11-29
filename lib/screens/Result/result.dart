@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ringworm_detection/Components/snackBar.dart';
@@ -77,12 +78,13 @@ class _ResultState extends State<Result> {
   Future<void> addData() async {
     final _uuid = const Uuid().v4();
     try {
-      if (result![0]['label'] != null) {
+      if (result![0]['label'] == "Ringworm") {
         imageUrl = await StorageMethods()
             .uploadImageToStorage("penyakit", widget.imagefile, true);
 
         await FirebaseFirestore.instance.collection('penyakit').doc(_uuid).set({
-          'uid': _uuid,
+          'uid': FirebaseAuth.instance.currentUser!.uid,
+          'dataId': _uuid,
           'img': imageUrl,
           'accuracy': result![0]['confidence'],
           'label': result![0]['label'],

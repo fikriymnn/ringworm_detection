@@ -300,7 +300,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                           DateTime? pickDate = await showDatePicker(
                               context: context,
                               initialDate: _selectedDate,
-                              firstDate: DateTime(2000),
+                              firstDate: DateTime(1900),
                               lastDate: DateTime(3000));
 
                           if (pickDate != null) {

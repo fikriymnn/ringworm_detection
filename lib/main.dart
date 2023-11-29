@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ringworm_detection/screens/history/history.dart';
 import 'package:ringworm_detection/screens/login/login.dart';
 import 'package:ringworm_detection/screens/registrasi/registrasi.dart';
 import 'routes/pageRoute.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         PageRoutes.aboutus: (context) => const AboutUs(),
         PageRoutes.login: (context) => const LoginScreens(),
         PageRoutes.registrasi: (context) => const RegistrasiScreens(),
+        PageRoutes.history: (context) => const HistoryScreens(),
       },
     );
   }

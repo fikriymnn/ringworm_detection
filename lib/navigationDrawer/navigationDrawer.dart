@@ -38,6 +38,12 @@ class NavigatorDrawer extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, PageRoutes.aboutus),
           ),
           DrawerItem(
+            icon: Icons.history,
+            text: 'History',
+            onTap: () =>
+                Navigator.pushReplacementNamed(context, PageRoutes.history),
+          ),
+          DrawerItem(
               icon: Icons.logout,
               text: 'logout',
               onTap: () async {
@@ -49,7 +55,7 @@ class NavigatorDrawer extends StatelessWidget {
                     content: Text(e.toString()),
                   );
                 }
-              })
+              }),
         ],
       ),
     );

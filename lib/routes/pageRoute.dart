@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:ringworm_detection/screens/history/history.dart';
 import 'package:ringworm_detection/screens/login/login.dart';
 
 import '../screens/AboutDiseases/aboutdiseases.dart';
@@ -16,4 +17,5 @@ class PageRoutes {
   static const String aboutus = AboutUs.routeName;
   static const String login = LoginScreens.routName;
   static const String registrasi = RegistrasiScreens.routName;
+  static const String history = HistoryScreens.routName;
 }
