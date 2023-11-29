@@ -37,8 +37,6 @@ class StorageMethods {
 
   Future<String> uploadImageToStorage2(
       String childName, Uint8List file, bool isPost) async {
-    // creating location to our firebase storage
-
     Reference ref =
         _storage.ref().child(childName).child(_auth.currentUser!.uid);
     if (isPost) {

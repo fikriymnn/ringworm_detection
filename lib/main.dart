@@ -1,16 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ringworm_detection/screens/editProfile/editProfile.dart';
+import 'package:ringworm_detection/screens/editProfile/editProfileDoctor.dart';
 import 'package:ringworm_detection/screens/history/history.dart';
+import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
 import 'package:ringworm_detection/screens/login/login.dart';
 import 'package:ringworm_detection/screens/registrasi/registrasi.dart';
+import 'package:ringworm_detection/validasi.dart';
 import 'routes/pageRoute.dart';
 import 'screens/AboutDiseases/aboutdiseases.dart';
 import 'screens/Aboutus/aboutcreaters.dart';
 import 'screens/Introduction/intro.dart';
 import 'screens/DoandDont/Doees.dart';
+import 'screens/Introduction/introDoctor.dart';
 import 'screens/MainScreen/mainScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'screens/chat/chatValidasiDoctor.dart';
+import 'screens/registrasi/registrasiDoctor.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +69,13 @@ class MyApp extends StatelessWidget {
         PageRoutes.login: (context) => const LoginScreens(),
         PageRoutes.registrasi: (context) => const RegistrasiScreens(),
         PageRoutes.history: (context) => const HistoryScreens(),
+        PageRoutes.homeDoctor: (context) => ChatValidasiDoctor(),
+        PageRoutes.introDoctor: (context) => const IntroDoctor(),
+        PageRoutes.Validasi: (context) => const ValidasiScreens(),
+        PageRoutes.registrasiDoctor: (context) =>
+            const RegistrasiScreensDoctor(),
+        PageRoutes.editProfile: (context) => const EditProfile(),
+        PageRoutes.editProfileDoctor: (context) => const EditProfileDoctor()
       },
     );
   }

@@ -7,7 +7,7 @@ import 'package:ringworm_detection/constraints.dart';
 import '../../Components/snackBar.dart';
 import '../../auth.dart';
 import '../../routes/pageRoute.dart';
-import '../widget/defaultTextField.dart';
+import '../../widget/defaultTextField.dart';
 
 class LoginScreens extends StatefulWidget {
   const LoginScreens({super.key});

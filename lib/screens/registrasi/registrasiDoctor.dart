@@ -1,27 +1,27 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ringworm_detection/Components/snackBar.dart';
-import 'package:ringworm_detection/constraints.dart';
-
-import '../../auth.dart';
+import 'package:ringworm_detection/auth.dart';
+import '../../Components/snackBar.dart';
+import '../../authDocter.dart';
+import '../../constraints.dart';
 import '../../routes/pageRoute.dart';
 import 'package:intl/intl.dart';
 
 import '../../widget/defaultTextField.dart';
 
-class RegistrasiScreens extends StatefulWidget {
-  const RegistrasiScreens({super.key});
-  static const String routName = '/registrasi';
+class RegistrasiScreensDoctor extends StatefulWidget {
+  const RegistrasiScreensDoctor({super.key});
+  static const String routeName = '/registrasiDoctor';
 
   @override
-  State<RegistrasiScreens> createState() => _RegistrasiScreensState();
+  State<RegistrasiScreensDoctor> createState() =>
+      _RegistrasiScreensDoctorState();
 }
 
-class _RegistrasiScreensState extends State<RegistrasiScreens> {
+class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
   Uint8List? _image;
   DateTime _selectedDate = DateTime.now();
 
@@ -32,11 +32,13 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
   final _emailTextController = TextEditingController();
   final _passTextController = TextEditingController();
   final _alamatTextController = TextEditingController();
+  final _alamatLinkTextController = TextEditingController();
   final _noHpTextController = TextEditingController();
   final _penyakitTextController = TextEditingController();
 
   final _fullNameFocusNode = FocusNode();
   final _alamatFocusNode = FocusNode();
+  final _alamatLinkFocusNode = FocusNode();
   final _noHpFocusNode = FocusNode();
   final _penyakitFocusNode = FocusNode();
   final _passFocusNode = FocusNode();
@@ -49,6 +51,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
   void dispose() {
     _fullNameController.dispose();
     _alamatTextController.dispose();
+    _alamatLinkTextController.dispose();
     _noHpTextController.dispose();
     _penyakitTextController.dispose();
 
@@ -58,6 +61,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
 
     _fullNameFocusNode.dispose();
     _alamatFocusNode.dispose();
+    _alamatLinkFocusNode.dispose();
     _noHpFocusNode.dispose();
     _penyakitFocusNode.dispose();
     _userNameFocusNode.dispose();
@@ -81,13 +85,13 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
           createdAt: Timestamp.now(),
           password: _passTextController.text,
           email: _emailTextController.text,
-          tanggalLahir: _selectedDate,
           alamat: _alamatTextController.text,
+          tanggalLahir: DateTime.now(),
+          riwayatPenyakit: "",
           nama: _fullNameController.text,
           noHp: _noHpTextController.text,
-          alamatLink: "",
-          role: "user",
-          riwayatPenyakit: _penyakitTextController.text);
+          role: "doctor",
+          alamatLink: _alamatLinkTextController.text);
       // if string returned is sucess, user has been created
       if (res == "success") {
         setState(() {
@@ -268,7 +272,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   compliteFocusNode: _penyakitFocusNode,
                   controller: _alamatTextController,
                   focusNode: _alamatFocusNode,
-                  hintText: "Alamat",
+                  hintText: "Alamat Rumah Sakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -282,67 +286,18 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   height: 10,
                 ),
                 DefaultTextFild(
-                  compliteFocusNode: _penyakitFocusNode,
-                  controller: _penyakitTextController,
-                  focusNode: _penyakitFocusNode,
-                  hintText: "Riwayat Penyakit",
+                  compliteFocusNode: _alamatLinkFocusNode,
+                  controller: _alamatLinkTextController,
+                  focusNode: _alamatLinkFocusNode,
+                  hintText: "Link Alamat Rumah Sakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
-                    return null;
+                    if (value!.isEmpty) {
+                      return "Please enter a valid value";
+                    } else {
+                      return null;
+                    }
                   },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          DateTime? pickDate = await showDatePicker(
-                              context: context,
-                              initialDate: _selectedDate,
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime(3000));
-
-                          if (pickDate != null) {
-                            setState(() {
-                              _selectedDate = pickDate;
-                            });
-                          }
-                        },
-                        child: Container(
-                            height: 35,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: kPrimaryColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Center(
-                                child: Text(
-                                  "Pilih Tanggal",
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        "${DateFormat("dd/MMMM/yyyy").format(_selectedDate)}",
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
                 const SizedBox(
                   height: 25,
@@ -370,31 +325,6 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500)),
                               )),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, PageRoutes.registrasiDoctor);
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Center(
-                        child: Text(
-                      "Registrasi Sebagai Dokter",
-                      style: GoogleFonts.rubik(
-                          textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500)),
-                    )),
                   ),
                 ),
                 const SizedBox(

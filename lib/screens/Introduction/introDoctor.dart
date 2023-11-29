@@ -1,45 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../navigationDrawer/navigationDrawer.dart';
+import '../../navigationDrawer/navigationDrawerDoctor.dart';
 import '../../routes/pageRoute.dart';
 
-class Intro extends StatefulWidget {
-  const Intro({Key? key}) : super(key: key);
+class IntroDoctor extends StatelessWidget {
+  const IntroDoctor({Key? key}) : super(key: key);
 
-  static const String routeName = '/intropage';
-
-  @override
-  State<Intro> createState() => _IntroState();
-}
-
-class _IntroState extends State<Intro> {
-  String? Role;
-  User? user = FirebaseAuth.instance.currentUser;
-
-  @override
-  void initState() {
-    getUserData();
-
-    super.initState();
-  }
-
-  Future<void> getUserData() async {
-    try {
-      final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('akun')
-          .doc(user!.uid)
-          .get();
-      if (userDoc == null) {
-        return;
-      } else {
-        Role = userDoc.get('role');
-      }
-    } catch (error) {
-    } finally {}
-  }
+  static const String routeName = '/intropageDoctor';
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +43,11 @@ class _IntroState extends State<Intro> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.arrow_forward),
-            onPressed: () => {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Role == "user" ? PageRoutes.home : PageRoutes.homeDoctor,
-                      (route) => false)
-                }),
-        drawer: const NavigatorDrawer(),
+          child: const Icon(Icons.arrow_forward),
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, PageRoutes.homeDoctor),
+        ),
+        drawer: const NavigatorDrawerDoctor(),
       ),
     );
   }

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../routes/pageRoute.dart';
 
-class NavigatorDrawer extends StatelessWidget {
-  const NavigatorDrawer({Key? key}) : super(key: key);
+class NavigatorDrawerDoctor extends StatelessWidget {
+  const NavigatorDrawerDoctor({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,37 +17,31 @@ class NavigatorDrawer extends StatelessWidget {
             icon: Icons.home,
             text: 'Home',
             onTap: () =>
-                Navigator.pushReplacementNamed(context, PageRoutes.home),
+                Navigator.pushReplacementNamed(context, PageRoutes.homeDoctor),
           ),
-          DrawerItem(
-            icon: Icons.rule,
-            text: 'Do\'s and Don\'ts',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, PageRoutes.dodont),
-          ),
-          DrawerItem(
-            icon: Icons.assignment_sharp,
-            text: 'About Diseases',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, PageRoutes.aboutdis),
-          ),
-          DrawerItem(
-            icon: Icons.assignment_ind_outlined,
-            text: 'About Me',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, PageRoutes.aboutus),
-          ),
-          DrawerItem(
-            icon: Icons.history,
-            text: 'History',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, PageRoutes.history),
-          ),
+          // DrawerItem(
+          //   icon: Icons.rule,
+          //   text: 'Do\'s and Don\'ts',
+          //   onTap: () =>
+          //       Navigator.pushReplacementNamed(context, PageRoutes.dodont),
+          // ),
+          // DrawerItem(
+          //   icon: Icons.assignment_sharp,
+          //   text: 'About Diseases',
+          //   onTap: () =>
+          //       Navigator.pushReplacementNamed(context, PageRoutes.aboutdis),
+          // ),
+          // DrawerItem(
+          //   icon: Icons.assignment_ind_outlined,
+          //   text: 'About Me',
+          //   onTap: () =>
+          //       Navigator.pushReplacementNamed(context, PageRoutes.aboutus),
+          // ),
           DrawerItem(
             icon: Icons.edit,
             text: 'Edit Profile',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, PageRoutes.editProfile),
+            onTap: () => Navigator.pushReplacementNamed(
+                context, PageRoutes.editProfileDoctor),
           ),
           DrawerItem(
               icon: Icons.logout,
@@ -61,7 +55,7 @@ class NavigatorDrawer extends StatelessWidget {
                     content: Text(e.toString()),
                   );
                 }
-              }),
+              })
         ],
       ),
     );

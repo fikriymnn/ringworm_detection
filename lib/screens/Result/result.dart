@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ringworm_detection/Components/snackBar.dart';
+import 'package:ringworm_detection/screens/listDoctor/listDoctor.dart';
+import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
 import 'package:ringworm_detection/storage.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
@@ -26,7 +28,9 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   List? result;
-  String? imageUrl;
+  String imageUrl = "";
+  String label = "";
+  dynamic confidence = "";
 
   @override
   void initState() {
@@ -67,6 +71,11 @@ class _ResultState extends State<Result> {
         imageMean: 127.5,
         imageStd: 127.5,
       );
+
+      setState(() {
+        label = result![0]['label'];
+        confidence = result![0]['confidence'];
+      });
 
       addData();
     } catch (e) {
@@ -125,7 +134,7 @@ class _ResultState extends State<Result> {
               result == null
                   ? const Text('Image Not Found')
                   : Text(
-                      'Penyakit Kulit Terdeteksi : ${result![0]['label']} \n Accuracy : ${result![0]['confidence']}',
+                      'Penyakit Kulit Terdeteksi : ${label} \n Accuracy : ${confidence} \n',
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -137,6 +146,18 @@ class _ResultState extends State<Result> {
               child: Text('Cari Dermatology Terdekat'),
             ),
           ),
+          if (label == "Ringworm")
+            Center(
+              child: ElevatedButton(
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ListDoctorPage(
+                              img: imageUrl,
+                            ))),
+                child: Text('Hubungi Doctor'),
+              ),
+            ),
         ]),
       ),
     );

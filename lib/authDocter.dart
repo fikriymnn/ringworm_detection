@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'model/userModel.dart' as model;
+import 'model/DocterModel.dart' as modelDoctor;
 
-class AuthMethods {
+class AuthMethodsDoctor {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   // Signing Up User
@@ -14,10 +14,7 @@ class AuthMethods {
     nama,
     alamat,
     noHp,
-    riwayatPenyakit,
     alamatLink,
-    role,
-    required DateTime tanggalLahir,
   }) async {
     String res = "Some error Occurred";
     try {
@@ -28,18 +25,16 @@ class AuthMethods {
           password: password,
         );
 
-        model.UserModel _user = model.UserModel(
+        modelDoctor.DoctorModel _user = modelDoctor.DoctorModel(
           createdAt: Timestamp.now(),
           uid: cred.user!.uid,
           nama: nama,
           email: email,
-          tanggalLahir: tanggalLahir,
-          alamatLink: alamatLink,
+          role: "doctor",
           alamat: alamat,
+          alamatLink: alamatLink,
           img: "",
-          role: role,
           noHp: noHp,
-          riwayatPenyakit: riwayatPenyakit,
         );
 
         // adding user in our database

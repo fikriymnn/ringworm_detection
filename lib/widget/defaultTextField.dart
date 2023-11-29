@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constraints.dart';
+import '../constraints.dart';
 
 class DefaultTextFild extends StatefulWidget {
   final dynamic focusNode,
