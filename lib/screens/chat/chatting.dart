@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:ringworm_detection/screens/DoctorDetail/DoctorDetail.dart';
 
 import '../../constraints.dart';
 import '../../firestore_methods.dart';
@@ -79,65 +80,74 @@ class _ChattingState extends State<Chatting> {
         ),
         title: Padding(
           padding: const EdgeInsets.only(right: 15),
-          child: Container(
-            height: 72,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(widget.friendImage),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 21,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.friendName,
-                                  style: GoogleFonts.rubik(
-                                      textStyle: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600)),
-                                ),
-                              ],
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DoctorDetail(id: widget.friendId)));
+            },
+            child: Container(
+              height: 72,
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(widget.friendImage),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 21,
+                              width: MediaQuery.of(context).size.width,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.friendName,
+                                    style: GoogleFonts.rubik(
+                                        textStyle: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600)),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            height: 18,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.friendEmail,
-                                  style: GoogleFonts.rubik(
-                                      textStyle: TextStyle(
-                                          color: Colors.white.withOpacity(0.5),
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                            Container(
+                              height: 18,
+                              width: MediaQuery.of(context).size.width,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.friendEmail,
+                                    style: GoogleFonts.rubik(
+                                        textStyle: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.5),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500)),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
