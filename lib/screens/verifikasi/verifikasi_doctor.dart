@@ -8,6 +8,7 @@ import 'package:ringworm_detection/Components/snackBar.dart';
 import 'package:ringworm_detection/constraints.dart';
 import 'package:ringworm_detection/routes/pageRoute.dart';
 import 'package:ringworm_detection/screens/Introduction/intro.dart';
+import 'package:ringworm_detection/screens/editProfile/editProfileDoctorDiTolak.dart';
 
 class VerifikasiSertifikatScreen extends StatefulWidget {
   const VerifikasiSertifikatScreen({super.key});
@@ -29,6 +30,7 @@ class _VerifikasiSertifikatScreenState
   }
 
   String? status;
+  String note = "";
   User? user = FirebaseAuth.instance.currentUser;
   bool loading = false;
 
@@ -48,6 +50,7 @@ class _VerifikasiSertifikatScreenState
         return;
       } else {
         status = userDoc.get('status');
+        note = userDoc.get("note");
         setState(() {
           loading = false;
         });
@@ -66,86 +69,208 @@ class _VerifikasiSertifikatScreenState
   @override
   Widget build(BuildContext context) => status == "active"
       ? Intro()
-      : Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Doctor Verification",
-              style: GoogleFonts.rubik(
-                  textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500)),
-            ),
-            backgroundColor: kPrimaryColor,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Data Anda Sedang Di Periksa Oleh Admin, Mohon Tunggu!!",
+      : status == "ditolak"
+          ? Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  "Doctor Verification",
                   style: GoogleFonts.rubik(
                       textStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
+                          color: Colors.white,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500)),
-                  textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 24,
-                ),
-                ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: kPrimaryColor,
-                        minimumSize: Size.fromHeight(50)),
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, PageRoutes.login, (route) => false);
-                    },
-                    icon: Icon(
-                      Icons.email,
-                      size: 32,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      "Kembali Ke Login",
+                backgroundColor: kPrimaryColor,
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Data Anda Di Tolak Oleh Admin Oleh Admin!!",
                       style: GoogleFonts.rubik(
                           textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
+                              color: Colors.black,
+                              fontSize: 20,
                               fontWeight: FontWeight.w500)),
-                    )),
-                SizedBox(
-                  height: 24,
-                ),
-                ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: kPrimaryColor,
-                        minimumSize: Size.fromHeight(50)),
-                    onPressed: () {
-                      getUserData();
-                    },
-                    icon: Icon(
-                      Icons.refresh_outlined,
-                      size: 32,
-                      color: Colors.white,
+                      textAlign: TextAlign.center,
                     ),
-                    label: loading == false
-                        ? Text(
-                            "Refresh",
-                            style: GoogleFonts.rubik(
-                                textStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500)),
-                          )
-                        : CircularProgressIndicator(
-                            color: Colors.white,
-                          )),
-              ],
-            ),
-          ),
-        );
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Note Admin : ${note}",
+                      style: GoogleFonts.rubik(
+                          textStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            minimumSize: Size.fromHeight(50)),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, PageRoutes.login, (route) => false);
+                        },
+                        icon: Icon(
+                          Icons.email,
+                          size: 32,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          "Kembali Ke Login",
+                          style: GoogleFonts.rubik(
+                              textStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w500)),
+                        )),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            minimumSize: Size.fromHeight(50)),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditProfileDoctorDiTolak()));
+                        },
+                        icon: Icon(
+                          Icons.edit,
+                          size: 32,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          "Edit Data",
+                          style: GoogleFonts.rubik(
+                              textStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w500)),
+                        )),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            minimumSize: Size.fromHeight(50)),
+                        onPressed: () {
+                          getUserData();
+                        },
+                        icon: Icon(
+                          Icons.refresh,
+                          size: 32,
+                          color: Colors.white,
+                        ),
+                        label: loading == false
+                            ? Text(
+                                "Refresh",
+                                style: GoogleFonts.rubik(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500)),
+                              )
+                            : CircularProgressIndicator(
+                                color: Colors.white,
+                              )),
+                  ],
+                ),
+              ),
+            )
+          : Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  "Doctor Verification",
+                  style: GoogleFonts.rubik(
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500)),
+                ),
+                backgroundColor: kPrimaryColor,
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Data Anda Sedang Di Periksa Oleh Admin, Mohon Tunggu!!",
+                      style: GoogleFonts.rubik(
+                          textStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            minimumSize: Size.fromHeight(50)),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, PageRoutes.login, (route) => false);
+                        },
+                        icon: Icon(
+                          Icons.email,
+                          size: 32,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          "Kembali Ke Login",
+                          style: GoogleFonts.rubik(
+                              textStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w500)),
+                        )),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            minimumSize: Size.fromHeight(50)),
+                        onPressed: () {
+                          getUserData();
+                        },
+                        icon: Icon(
+                          Icons.refresh_outlined,
+                          size: 32,
+                          color: Colors.white,
+                        ),
+                        label: loading == false
+                            ? Text(
+                                "Refresh",
+                                style: GoogleFonts.rubik(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500)),
+                              )
+                            : CircularProgressIndicator(
+                                color: Colors.white,
+                              )),
+                  ],
+                ),
+              ),
+            );
 }

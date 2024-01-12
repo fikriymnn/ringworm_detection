@@ -2,7 +2,7 @@
 import 'package:ringworm_detection/screens/editProfile/editProfile.dart';
 import 'package:ringworm_detection/screens/editProfile/editProfileDoctor.dart';
 import 'package:ringworm_detection/screens/history/history.dart';
-import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
+
 import 'package:ringworm_detection/screens/login/login.dart';
 import 'package:ringworm_detection/screens/forget_password/forget_password.dart';
 import 'package:ringworm_detection/screens/verifikasi/verifikasi.dart';
@@ -28,7 +28,6 @@ class PageRoutes {
   static const String registrasi = RegistrasiScreens.routName;
   static const String history = HistoryScreens.routName;
   static String homeDoctor = ChatValidasiDoctor.routName;
-  static String listDoctor = ListDoctorPage.routName;
   static const String introDoctor = IntroDoctor.routeName;
   static const String registrasiDoctor = RegistrasiScreensDoctor.routeName;
   static String Validasi = ValidasiScreens.routeName;

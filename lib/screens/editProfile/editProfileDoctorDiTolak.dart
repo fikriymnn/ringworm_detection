@@ -16,15 +16,16 @@ import '../../navigationDrawer/navigationDrawer.dart';
 import '../../storage.dart';
 import '../../widget/defaultTextField.dart';
 
-class EditProfileDoctor extends StatefulWidget {
-  const EditProfileDoctor({super.key});
-  static const String routeeName = '/editProfileDoctor';
+class EditProfileDoctorDiTolak extends StatefulWidget {
+  const EditProfileDoctorDiTolak({super.key});
+  static const String routeeName = '/editProfileDoctorDiTolak';
 
   @override
-  State<EditProfileDoctor> createState() => _EditProfileDoctorState();
+  State<EditProfileDoctorDiTolak> createState() =>
+      _EditProfileDoctorDiTolakState();
 }
 
-class _EditProfileDoctorState extends State<EditProfileDoctor> {
+class _EditProfileDoctorDiTolakState extends State<EditProfileDoctorDiTolak> {
   XFile? _image;
   XFile? _imageSertifikat;
   DateTime _selectedDate = DateTime.now();
@@ -110,6 +111,14 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
         title: Text("Edit Profile",
             style: GoogleFonts.rubik(
                 textStyle: const TextStyle(
@@ -117,7 +126,6 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                     fontSize: 30,
                     fontWeight: FontWeight.w500))),
       ),
-      drawer: const NavigatorDrawerDoctor(),
       body: SingleChildScrollView(
           child: Container(
         width: MediaQuery.of(context).size.width,
@@ -372,6 +380,8 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                         'alamat': _alamatTextController.text,
                         'sertifikat': sertifikat,
                         'alamatLink': _alamatLinkTextController.text,
+                        'status': 'non-active',
+                        'note': ""
                       });
                       GlobalMethods.errorDialog(
                           subtitle: "Berhasil di Edit", context: context);

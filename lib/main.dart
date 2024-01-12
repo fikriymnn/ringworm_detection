@@ -4,7 +4,7 @@ import 'package:ringworm_detection/screens/editProfile/editProfile.dart';
 import 'package:ringworm_detection/screens/editProfile/editProfileDoctor.dart';
 import 'package:ringworm_detection/screens/forget_password/forget_password.dart';
 import 'package:ringworm_detection/screens/history/history.dart';
-import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
+
 import 'package:ringworm_detection/screens/login/login.dart';
 import 'package:ringworm_detection/screens/registrasi/registrasi.dart';
 import 'package:ringworm_detection/screens/verifikasi/verifikasi.dart';

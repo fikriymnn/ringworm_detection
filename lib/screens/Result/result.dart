@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ringworm_detection/Components/snackBar.dart';
 import 'package:ringworm_detection/constraints.dart';
 import 'package:ringworm_detection/screens/listDoctor/listDoctor.dart';
-import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
+
 import 'package:ringworm_detection/storage.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
@@ -164,9 +164,8 @@ class _ResultState extends State<Result> {
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ListDoctorPage(
-                                      img: imageUrl,
-                                    ))),
+                                builder: (context) =>
+                                    ListDoctor(img: imageUrl))),
                         child: Text('Hubungi Doctor'),
                       )
                     : CircularProgressIndicator(

@@ -36,16 +36,20 @@ class StorageMethods {
   }
 
   Future<String> uploadImageToStorage2(
-      String childName, Uint8List file, bool isPost) async {
-    Reference ref =
-        _storage.ref().child(childName).child(_auth.currentUser!.uid);
-    if (isPost) {
-      String id = const Uuid().v1();
-      ref = ref.child(id);
-    }
+      String childName, XFile filee, bool isPost) async {
+    // creating location to our firebase storage
+    final mimeType =
+        lookupMimeType(filee.path); // Adjust this based on your file type
+    SettableMetadata metadata = SettableMetadata(contentType: mimeType);
+
+    Reference ref = _storage.ref().child(childName).child(filee.name);
+    // if (isPost) {
+    //   String id = const Uuid().v1();
+    //   ref = ref.child(id);
+    // }
 
     // putting in uint8list format -> Upload task like a future but not future
-    UploadTask uploadTask = ref.putData(file);
+    UploadTask uploadTask = ref.putFile(File(filee.path), metadata);
 
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();

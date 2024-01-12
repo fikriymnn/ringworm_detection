@@ -36,6 +36,7 @@ class AuthMethodsDoctor {
             alamatLink: alamatLink,
             img: "",
             noHp: noHp,
+            note: "",
             status: "non-active",
             sertifikat: sertifikat);
 

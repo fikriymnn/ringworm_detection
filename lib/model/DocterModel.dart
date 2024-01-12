@@ -10,7 +10,8 @@ class DoctorModel {
       role,
       alamatLink,
       sertifikat,
-      status;
+      status,
+      note;
   final Timestamp createdAt;
 
   const DoctorModel(
@@ -24,7 +25,8 @@ class DoctorModel {
       required this.role,
       required this.img,
       required this.sertifikat,
-      required this.status});
+      required this.status,
+      required this.note});
 
   static DoctorModel fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
@@ -40,7 +42,8 @@ class DoctorModel {
         noHp: snapshot["noHp"],
         role: snapshot["role"],
         sertifikat: snapshot["sertifikat"],
-        status: snapshot["status"]);
+        status: snapshot["status"],
+        note: snapshot["note"]);
   }
 
   Map<String, dynamic> toJson() => {
@@ -54,6 +57,7 @@ class DoctorModel {
         "role": role,
         "sertifikat": sertifikat,
         "status": status,
+        "note": note,
         "createdAt": Timestamp.now()
       };
 }

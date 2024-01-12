@@ -13,18 +13,19 @@ class UserModel {
   final DateTime tanggalLahir;
   final Timestamp createdAt;
 
-  const UserModel(
-      {required this.createdAt,
-      required this.uid,
-      required this.nama,
-      required this.email,
-      required this.tanggalLahir,
-      required this.noHp,
-      required this.alamat,
-      required this.riwayatPenyakit,
-      required this.img,
-      required this.alamatLink,
-      required this.role});
+  const UserModel({
+    required this.createdAt,
+    required this.uid,
+    required this.nama,
+    required this.email,
+    required this.tanggalLahir,
+    required this.noHp,
+    required this.alamat,
+    required this.riwayatPenyakit,
+    required this.img,
+    required this.alamatLink,
+    required this.role,
+  });
 
   static UserModel fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
