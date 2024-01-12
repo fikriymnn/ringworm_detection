@@ -314,7 +314,7 @@ class _EditProfileState extends State<EditProfile> {
                     String? photoUrl;
 
                     if (_image == null) {
-                      photoUrl = "";
+                      photoUrl = _photoUrl;
                     } else {
                       photoUrl = await StorageMethods()
                           .uploadImageToStorage('profilePics', _image!, false);
