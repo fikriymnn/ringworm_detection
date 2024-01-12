@@ -26,7 +26,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   XFile? _image;
   DateTime _selectedDate = DateTime.now();
-  String? _photoUrl;
+  String? _photoUrl = "";
   User? user = FirebaseAuth.instance.currentUser;
 
   final _formKey = GlobalKey<FormState>();
@@ -143,7 +143,7 @@ class _EditProfileState extends State<EditProfile> {
                             backgroundImage: FileImage(File(_image!.path)),
                             backgroundColor: Colors.red,
                           )
-                        : _photoUrl != null
+                        : _photoUrl != ""
                             ? CircleAvatar(
                                 radius: 64,
                                 backgroundImage: NetworkImage(_photoUrl!),
