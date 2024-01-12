@@ -1,9 +1,19 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tflite/tflite.dart';
+import 'package:ringworm_detection/Components/snackBar.dart';
+import 'package:ringworm_detection/constraints.dart';
+import 'package:ringworm_detection/screens/listDoctor/listDoctor.dart';
+
+import 'package:ringworm_detection/storage.dart';
+import 'package:tflite_v2/tflite_v2.dart';
+
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 // ignore: must_be_immutable
 class Result extends StatefulWidget {
@@ -19,6 +29,11 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   List? result;
+  String imageUrl = "";
+  String label = "";
+  dynamic confidence = "";
+  bool loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -58,10 +73,48 @@ class _ResultState extends State<Result> {
         imageMean: 127.5,
         imageStd: 127.5,
       );
+
+      setState(() {
+        label = result![0]['label'];
+        confidence = result![0]['confidence'];
+      });
+
+      addData();
     } catch (e) {
       // ignored, really.
     }
     setState(() {});
+  }
+
+  Future<void> addData() async {
+    final _uuid = const Uuid().v4();
+    try {
+      if (result![0]['label'] == "Ringworm") {
+        setState(() {
+          loading = true;
+        });
+        imageUrl = await StorageMethods()
+            .uploadImageToStorage("penyakit", widget.imagefile, true);
+
+        await FirebaseFirestore.instance.collection('penyakit').doc(_uuid).set({
+          'uid': FirebaseAuth.instance.currentUser!.uid,
+          'dataId': _uuid,
+          'img': imageUrl,
+          'accuracy': result![0]['confidence'],
+          'label': result![0]['label'],
+          'createdAt': DateTime.now(),
+        });
+        showSnackBar(context, "upload berhasil");
+        setState(() {
+          loading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      showSnackBar(context, e.toString());
+    }
   }
 
   @override
@@ -92,7 +145,7 @@ class _ResultState extends State<Result> {
               result == null
                   ? const Text('Image Not Found')
                   : Text(
-                      'Penyakit Kulit Terdeteksi : ${result![0]['label']} \n Accuracy : ${result![0]['confidence']}',
+                      'Penyakit Kulit Terdeteksi : ${label}',
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -104,6 +157,20 @@ class _ResultState extends State<Result> {
               child: Text('Cari Dermatology Terdekat'),
             ),
           ),
+          if (label == "Ringworm")
+            Center(
+                child: loading == false
+                    ? ElevatedButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ListDoctor(img: imageUrl))),
+                        child: Text('Hubungi Doctor'),
+                      )
+                    : CircularProgressIndicator(
+                        color: kPrimaryColor,
+                      )),
         ]),
       ),
     );
