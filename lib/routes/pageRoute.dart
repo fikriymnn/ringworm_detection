@@ -4,6 +4,8 @@ import 'package:ringworm_detection/screens/editProfile/editProfileDoctor.dart';
 import 'package:ringworm_detection/screens/history/history.dart';
 import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
 import 'package:ringworm_detection/screens/login/login.dart';
+import 'package:ringworm_detection/screens/forget_password/forget_password.dart';
+import 'package:ringworm_detection/screens/verifikasi/verifikasi.dart';
 
 import '../screens/AboutDiseases/aboutdiseases.dart';
 import '../screens/Aboutus/aboutcreaters.dart';
@@ -32,4 +34,6 @@ class PageRoutes {
   static String Validasi = ValidasiScreens.routeName;
   static String editProfile = EditProfile.routeeName;
   static String editProfileDoctor = EditProfileDoctor.routeeName;
+  static String verifikasiEmail = VerifikasiScreen.routName;
+  static String ForgetPassword = ForgetPasswordScreen.routeName;
 }

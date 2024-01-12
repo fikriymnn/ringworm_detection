@@ -10,11 +10,12 @@ class AuthMethodsDoctor {
   Future<String> signUpUser({
     required Timestamp createdAt,
     required String email,
-    password,
-    nama,
-    alamat,
-    noHp,
-    alamatLink,
+    required String password,
+    required String nama,
+    required String alamat,
+    required String noHp,
+    required String alamatLink,
+    required String sertifikat,
   }) async {
     String res = "Some error Occurred";
     try {
@@ -26,16 +27,17 @@ class AuthMethodsDoctor {
         );
 
         modelDoctor.DoctorModel _user = modelDoctor.DoctorModel(
-          createdAt: Timestamp.now(),
-          uid: cred.user!.uid,
-          nama: nama,
-          email: email,
-          role: "doctor",
-          alamat: alamat,
-          alamatLink: alamatLink,
-          img: "",
-          noHp: noHp,
-        );
+            createdAt: Timestamp.now(),
+            uid: cred.user!.uid,
+            nama: nama,
+            email: email,
+            role: "doctor",
+            alamat: alamat,
+            alamatLink: alamatLink,
+            img: "",
+            noHp: noHp,
+            status: "non-active",
+            sertifikat: sertifikat);
 
         // adding user in our database
         await _firestore

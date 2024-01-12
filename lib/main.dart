@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ringworm_detection/screens/editProfile/editProfile.dart';
 import 'package:ringworm_detection/screens/editProfile/editProfileDoctor.dart';
+import 'package:ringworm_detection/screens/forget_password/forget_password.dart';
 import 'package:ringworm_detection/screens/history/history.dart';
 import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
 import 'package:ringworm_detection/screens/login/login.dart';
 import 'package:ringworm_detection/screens/registrasi/registrasi.dart';
+import 'package:ringworm_detection/screens/verifikasi/verifikasi.dart';
 import 'package:ringworm_detection/validasi.dart';
 import 'routes/pageRoute.dart';
 import 'screens/AboutDiseases/aboutdiseases.dart';
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
               // Checking if the snapshot has any data or not
               if (snapshot.hasData) {
                 // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
-                return const Intro();
+                return const VerifikasiScreen();
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),
@@ -75,7 +77,9 @@ class MyApp extends StatelessWidget {
         PageRoutes.registrasiDoctor: (context) =>
             const RegistrasiScreensDoctor(),
         PageRoutes.editProfile: (context) => const EditProfile(),
-        PageRoutes.editProfileDoctor: (context) => const EditProfileDoctor()
+        PageRoutes.editProfileDoctor: (context) => const EditProfileDoctor(),
+        PageRoutes.verifikasiEmail: (context) => const VerifikasiScreen(),
+        PageRoutes.ForgetPassword: (context) => const ForgetPasswordScreen()
       },
     );
   }

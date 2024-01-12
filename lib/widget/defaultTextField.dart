@@ -9,7 +9,8 @@ class DefaultTextFild extends StatefulWidget {
       controller,
       hintText,
       validator,
-      keyboardType;
+      keyboardType,
+      label;
   const DefaultTextFild(
       {super.key,
       this.focusNode,
@@ -17,7 +18,8 @@ class DefaultTextFild extends StatefulWidget {
       this.controller,
       this.hintText,
       this.validator,
-      this.keyboardType});
+      this.keyboardType,
+      required this.label});
 
   @override
   State<DefaultTextFild> createState() => _DefaultTextFildState();
@@ -64,6 +66,7 @@ class _DefaultTextFildState extends State<DefaultTextFild> {
             borderRadius: BorderRadius.circular(15),
           ),
           hintText: widget.hintText,
+          labelText: widget.label,
           hintStyle: GoogleFonts.rubik(
               textStyle: const TextStyle(
                   color: Colors.black,

@@ -44,7 +44,7 @@ class _LoginScreensState extends State<LoginScreens> {
           password: _passTextController.text.trim());
 
       Navigator.pushNamedAndRemoveUntil(
-          context, PageRoutes.intro, (route) => false);
+          context, PageRoutes.verifikasiEmail, (route) => false);
 
       print('Successfully logged in');
     } on FirebaseException catch (error) {
@@ -108,6 +108,7 @@ class _LoginScreensState extends State<LoginScreens> {
                           controller: _emailTextController,
                           focusNode: _emailFocusNode,
                           hintText: "Email",
+                          label: "Email",
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty || !value.contains("@")) {
@@ -176,6 +177,7 @@ class _LoginScreensState extends State<LoginScreens> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               hintText: "Password",
+                              labelText: "Password",
                               hintStyle: GoogleFonts.rubik(
                                   textStyle: const TextStyle(
                                       color: Colors.black,
@@ -185,25 +187,25 @@ class _LoginScreensState extends State<LoginScreens> {
                         const SizedBox(
                           height: 5,
                         ),
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width,
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.end,
-                        //     children: [
-                        //       TextButton(
-                        //           onPressed: () {
-                        //             Navigator.pushReplacementNamed(
-                        //                 context, PageRoutes.intro);
-                        //           },
-                        //           child: Text("Lupa Password?",
-                        //               style: GoogleFonts.poppins(
-                        //                   textStyle: const TextStyle(
-                        //                       color: kPrimaryColor,
-                        //                       fontSize: 10,
-                        //                       fontWeight: FontWeight.w500)))),
-                        //     ],
-                        //   ),
-                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, PageRoutes.ForgetPassword);
+                                  },
+                                  child: Text("Lupa Password?",
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              color: kPrimaryColor,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500)))),
+                            ],
+                          ),
+                        ),
                         const SizedBox(
                           height: 5,
                         ),
@@ -251,7 +253,7 @@ class _LoginScreensState extends State<LoginScreens> {
                               ),
                               TextButton(
                                   onPressed: () {
-                                    Navigator.pushReplacementNamed(
+                                    Navigator.pushNamed(
                                         context, PageRoutes.registrasi);
                                   },
                                   child: Text("Daftar di sini",

@@ -94,7 +94,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
           _isLoading = false;
         });
         Navigator.pushNamedAndRemoveUntil(
-            context, PageRoutes.intro, (route) => false);
+            context, PageRoutes.verifikasiEmail, (route) => false);
       } else {
         setState(() {
           _isLoading = false;
@@ -154,6 +154,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   controller: _emailTextController,
                   focusNode: _emailFocusNode,
                   hintText: "Email",
+                  label: "Email",
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value!.isEmpty || !value.contains("@")) {
@@ -221,6 +222,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       hintText: "Password",
+                      labelText: "Password",
                       hintStyle: GoogleFonts.rubik(
                           textStyle: const TextStyle(
                               color: Colors.black,
@@ -235,6 +237,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   controller: _fullNameController,
                   focusNode: _fullNameFocusNode,
                   hintText: "Nama",
+                  label: "Nama",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -252,6 +255,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   controller: _noHpTextController,
                   focusNode: _noHpFocusNode,
                   hintText: "No Hp",
+                  label: "Np Hp",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -269,6 +273,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   controller: _alamatTextController,
                   focusNode: _alamatFocusNode,
                   hintText: "Alamat",
+                  label: "Alamat",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -286,6 +291,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                   controller: _penyakitTextController,
                   focusNode: _penyakitFocusNode,
                   hintText: "Riwayat Penyakit",
+                  label: "Riwayat Penyakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     return null;
@@ -377,8 +383,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, PageRoutes.registrasiDoctor);
+                    Navigator.pushNamed(context, PageRoutes.registrasiDoctor);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

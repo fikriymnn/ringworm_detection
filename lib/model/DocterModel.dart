@@ -1,7 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DoctorModel {
-  final String uid, noHp, alamat, email, nama, img, role, alamatLink;
+  final String uid,
+      noHp,
+      alamat,
+      email,
+      nama,
+      img,
+      role,
+      alamatLink,
+      sertifikat,
+      status;
   final Timestamp createdAt;
 
   const DoctorModel(
@@ -13,22 +22,25 @@ class DoctorModel {
       required this.alamat,
       required this.alamatLink,
       required this.role,
-      required this.img});
+      required this.img,
+      required this.sertifikat,
+      required this.status});
 
   static DoctorModel fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return DoctorModel(
-      createdAt: snapshot["createdAt"],
-      uid: snapshot["uid"],
-      nama: snapshot['nama'],
-      email: snapshot["email"],
-      alamat: snapshot["alamat"],
-      alamatLink: snapshot['alamatLink'],
-      img: snapshot["img"],
-      noHp: snapshot["noHp"],
-      role: snapshot["role"],
-    );
+        createdAt: snapshot["createdAt"],
+        uid: snapshot["uid"],
+        nama: snapshot['nama'],
+        email: snapshot["email"],
+        alamat: snapshot["alamat"],
+        alamatLink: snapshot['alamatLink'],
+        img: snapshot["img"],
+        noHp: snapshot["noHp"],
+        role: snapshot["role"],
+        sertifikat: snapshot["sertifikat"],
+        status: snapshot["status"]);
   }
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +52,8 @@ class DoctorModel {
         "img": img,
         "noHp": noHp,
         "role": role,
+        "sertifikat": sertifikat,
+        "status": status,
         "createdAt": Timestamp.now()
       };
 }

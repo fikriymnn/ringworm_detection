@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ringworm_detection/auth.dart';
+import 'package:ringworm_detection/storage.dart';
 import '../../Components/snackBar.dart';
 import '../../authDocter.dart';
 import '../../constraints.dart';
@@ -22,8 +23,9 @@ class RegistrasiScreensDoctor extends StatefulWidget {
 }
 
 class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
-  Uint8List? _image;
-  DateTime _selectedDate = DateTime.now();
+  XFile? _image;
+
+  String? fileName = "";
 
   final _formKey = GlobalKey<FormState>();
   final _fullNameController = TextEditingController();
@@ -79,26 +81,33 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
       setState(() {
         _isLoading = true;
       });
+      String? sertifikatFile;
+
+      if (_image == null) {
+        sertifikatFile = "";
+      } else {
+        sertifikatFile = await StorageMethods()
+            .uploadImageToStorage('sertifikat', _image!, false);
+      }
 
       // signup user using our authmethodds
-      String res = await AuthMethods().signUpUser(
+      String res = await AuthMethodsDoctor().signUpUser(
           createdAt: Timestamp.now(),
           password: _passTextController.text,
           email: _emailTextController.text,
           alamat: _alamatTextController.text,
-          tanggalLahir: DateTime.now(),
-          riwayatPenyakit: "",
           nama: _fullNameController.text,
           noHp: _noHpTextController.text,
-          role: "doctor",
+          sertifikat: sertifikatFile,
           alamatLink: _alamatLinkTextController.text);
+
       // if string returned is sucess, user has been created
       if (res == "success") {
         setState(() {
           _isLoading = false;
         });
         Navigator.pushNamedAndRemoveUntil(
-            context, PageRoutes.intro, (route) => false);
+            context, PageRoutes.verifikasiEmail, (route) => false);
       } else {
         setState(() {
           _isLoading = false;
@@ -134,7 +143,7 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: Text("Registrasi",
+        title: Text("Registrasi Doctor",
             style: GoogleFonts.rubik(
                 textStyle: const TextStyle(
                     color: kPrimaryColor,
@@ -158,6 +167,7 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
                   controller: _emailTextController,
                   focusNode: _emailFocusNode,
                   hintText: "Email",
+                  label: "Email",
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value!.isEmpty || !value.contains("@")) {
@@ -239,6 +249,7 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
                   controller: _fullNameController,
                   focusNode: _fullNameFocusNode,
                   hintText: "Nama",
+                  label: "Nama",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -256,6 +267,7 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
                   controller: _noHpTextController,
                   focusNode: _noHpFocusNode,
                   hintText: "No Hp",
+                  label: "No Hp",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -273,6 +285,7 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
                   controller: _alamatTextController,
                   focusNode: _alamatFocusNode,
                   hintText: "Alamat Rumah Sakit",
+                  label: "Alamat Rumah Sakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -290,6 +303,7 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
                   controller: _alamatLinkTextController,
                   focusNode: _alamatLinkFocusNode,
                   hintText: "Link Alamat Rumah Sakit",
+                  label: "Link Alamat Rumah Sakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -298,6 +312,61 @@ class _RegistrasiScreensDoctorState extends State<RegistrasiScreensDoctor> {
                       return null;
                     }
                   },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          try {
+                            final XFile? file = await ImagePicker()
+                                .pickImage(source: ImageSource.gallery);
+                            if (file != null) {
+                              setState(() {
+                                _image = file;
+                                fileName = file.name;
+                              });
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: Container(
+                            height: 50,
+                            width: 160,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: kPrimaryColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Center(
+                                child: Text(
+                                  "Masukan Sertifikat",
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        fileName!,
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 25,

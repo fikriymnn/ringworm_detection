@@ -193,6 +193,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: _fullNameController,
                   focusNode: _fullNameFocusNode,
                   hintText: "Nama",
+                  label: "Nama",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -210,6 +211,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: _noHpTextController,
                   focusNode: _noHpFocusNode,
                   hintText: "No Hp",
+                  label: "No Hp",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -227,6 +229,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: _alamatTextController,
                   focusNode: _alamatFocusNode,
                   hintText: "Alamat",
+                  label: "Alamat",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -244,6 +247,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: _penyakitTextController,
                   focusNode: _penyakitFocusNode,
                   hintText: "Riwayat Penyakit",
+                  label: "Riwayat Penyakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     return null;

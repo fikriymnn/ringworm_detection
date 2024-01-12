@@ -184,6 +184,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                   controller: _fullNameController,
                   focusNode: _fullNameFocusNode,
                   hintText: "Nama",
+                  label: "Nama",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -201,6 +202,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                   controller: _noHpTextController,
                   focusNode: _noHpFocusNode,
                   hintText: "No Hp",
+                  label: "No Hp",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -218,6 +220,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                   controller: _alamatTextController,
                   focusNode: _alamatFocusNode,
                   hintText: "Alamat Rumah Sakit",
+                  label: "Alamat Rumah Sakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -235,6 +238,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                   controller: _alamatLinkTextController,
                   focusNode: _alamatLinkFocusNode,
                   hintText: "Link Alamat Rumah Sakit",
+                  label: "Link Alamat Rumah Sakit",
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {

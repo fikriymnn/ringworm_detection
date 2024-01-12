@@ -75,13 +75,6 @@ class _HistoryScreensState extends State<HistoryScreens> {
                                     textAlign: TextAlign.center,
                                   ),
                                   Text(
-                                    "accuracy : ${accuracy}",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
                                     date.toString(),
                                     style: TextStyle(
                                         fontSize: 14,

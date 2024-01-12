@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ringworm_detection/Components/snackBar.dart';
+import 'package:ringworm_detection/constraints.dart';
 import 'package:ringworm_detection/screens/listDoctor/listDoctor.dart';
 import 'package:ringworm_detection/screens/listDoctor/listDoctorPage.dart';
 import 'package:ringworm_detection/storage.dart';
@@ -31,6 +32,7 @@ class _ResultState extends State<Result> {
   String imageUrl = "";
   String label = "";
   dynamic confidence = "";
+  bool loading = false;
 
   @override
   void initState() {
@@ -88,6 +90,9 @@ class _ResultState extends State<Result> {
     final _uuid = const Uuid().v4();
     try {
       if (result![0]['label'] == "Ringworm") {
+        setState(() {
+          loading = true;
+        });
         imageUrl = await StorageMethods()
             .uploadImageToStorage("penyakit", widget.imagefile, true);
 
@@ -100,8 +105,14 @@ class _ResultState extends State<Result> {
           'createdAt': DateTime.now(),
         });
         showSnackBar(context, "upload berhasil");
+        setState(() {
+          loading = false;
+        });
       }
     } catch (e) {
+      setState(() {
+        loading = false;
+      });
       showSnackBar(context, e.toString());
     }
   }
@@ -134,7 +145,7 @@ class _ResultState extends State<Result> {
               result == null
                   ? const Text('Image Not Found')
                   : Text(
-                      'Penyakit Kulit Terdeteksi : ${label} \n Accuracy : ${confidence} \n',
+                      'Penyakit Kulit Terdeteksi : ${label}',
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -148,16 +159,19 @@ class _ResultState extends State<Result> {
           ),
           if (label == "Ringworm")
             Center(
-              child: ElevatedButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ListDoctorPage(
-                              img: imageUrl,
-                            ))),
-                child: Text('Hubungi Doctor'),
-              ),
-            ),
+                child: loading == false
+                    ? ElevatedButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ListDoctorPage(
+                                      img: imageUrl,
+                                    ))),
+                        child: Text('Hubungi Doctor'),
+                      )
+                    : CircularProgressIndicator(
+                        color: kPrimaryColor,
+                      )),
         ]),
       ),
     );
