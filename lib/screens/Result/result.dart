@@ -151,12 +151,12 @@ class _ResultState extends State<Result> {
                     ),
             ],
           ),
-          Center(
+          /* Center(
             child: ElevatedButton(
               onPressed: () => _openGoogleMaps(),
               child: Text('Cari Dermatology Terdekat'),
             ),
-          ),
+          ), */
           if (label == "Ringworm")
             Center(
                 child: loading == false
